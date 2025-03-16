@@ -12,14 +12,18 @@ CORS(app)
 @app.route('/send-payment', methods=['POST'])
 @cross_origin()
 def sendPaymentEndPoint():
-    senderUsername = request.json['senderUsername']
-    receiverUsername = request.json['receiverUsername']
-    amount = request.json['amount']
+    try:
+        senderUsername = request.json['senderUsername']
+        receiverUsername = request.json['receiverUsername']
+        amount = request.json['amount']
 
-    sendPayment(senderUsername, receiverUsername, amount)
+        sendPayment(senderUsername, receiverUsername, amount)
 
 
-    return jsonify({"result":"connected"})
+        return jsonify({"result":"connected"})
+    except:
+        return jsonify({"result":"failed"})
+
 
 
 @app.route('/')
